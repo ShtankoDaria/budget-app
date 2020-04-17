@@ -52,6 +52,40 @@ showBalance(){
   }
 }
 
+
+//submit expense form
+submitExpenseForm(){
+  const expenseValue = this.expenseInput.value;
+  const amountValue = this.amountInput.value;
+  if(expenseValue === '' || amountValue === '' || amountValue <0){
+    this.expenseFeedback.classList.add("showItem");
+    this.expenseFeedback.innerHTML = `<p>Values can not be empty or negative</p>`;
+    const self = this;
+    setTimeout(function(){
+      self.expenseFeedback.classList.remove('showItem')
+ }, 4000);
+
+  }
+  else {
+    let amount = parseInt(amountValue);
+    this.expenseInput = '';
+    this.amountInput ='';
+
+    let expense = {
+      id: this.itemID,
+      title: expenseValue,
+      amount: amount,
+    }
+    this.itemID++;
+    this.itemList.push(expense);
+    this.addExpense(expense);
+    //show balance
+  }
+}
+
+//add expense
+
+
 //total expense
 totalExpense(){
 return total;
@@ -75,6 +109,7 @@ return total;
     //expense form submit
     expenseForm.addEventListener('submit',function(event){
         event.preventDefault();
+        ui.submitExpenseForm();
     })
     
     
